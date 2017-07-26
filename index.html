@@ -1,8 +1,8 @@
-п»ї<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Calendar &bullet; 0.0.1</title>
-		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=cp1251" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- MomentJS -->
@@ -12,7 +12,7 @@
 		<!-- jQuery -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<!-- Semantic UI -->
-		<link href="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.js"></script>
 		<!-- Lato -->
 		<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
@@ -22,62 +22,219 @@
 		<style>
 			/* Calendar */
 			html, body,
-			#calendar { width: 100%; height: 100%; overflow: hidden; }
-			#calendar > nav { height: 50px; display: flex; justify-content: center; align-items: center; }
-			#calendar > nav > .nav { height: 50px; width: 50px; padding: 5px; }
-			#calendar > nav > .nav.hide { position: absolute; left: 0; top: 0; }
-			#calendar > nav > .nav svg { fill: #777777; }
-			#calendar > nav > .nav:hover svg { fill: #000000; }
-			#calendar > nav > .title { color: #666666; font-weight: 300; font-size: 25px; line-height: 25px; text-align: center; letter-spacing: -1px; position: relative; }
-			#calendar > nav > .title strong { font-weight: 800; }
+			#calendar {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+
+				#calendar > nav {
+					height: 50px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+
+					#calendar > nav > .nav {
+						height: 50px;
+						width: 50px;
+						padding: 5px;
+					}
+
+						#calendar > nav > .nav.hide {
+							position: absolute;
+							left: 0;
+							top: 0;
+						}
+
+						#calendar > nav > .nav svg {
+							fill: #777777;
+						}
+
+						#calendar > nav > .nav:hover svg {
+							fill: #000000;
+						}
+
+					#calendar > nav > .title {
+						color: #666666;
+						font-weight: 300;
+						font-size: 25px;
+						line-height: 25px;
+						text-align: center;
+						letter-spacing: -1px;
+						position: relative;
+					}
+
+						#calendar > nav > .title strong {
+							font-weight: 800;
+						}
 				/* Calendar: Year */
-				#calendar > .YYYY { position: absolute; width: 100%; left: 0; top: 50px; bottom: 10px; }
+				#calendar > .YYYY {
+					position: absolute;
+					width: 100%;
+					left: 0;
+					top: 50px;
+					bottom: 10px;
+				}
 					/* Calendar: Months */
-					#calendar > .YYYY > .M { float: left; width: calc((100% - 50px) / 4); margin-left: 10px; text-align: center; }
-						/* Calendar: Rows */
-						#calendar > .YYYY[data-w="16"] > .M[data-w="4"] { height: calc(100%/16*4); }
-						#calendar > .YYYY[data-w="16"] > .M[data-w="5"] { height: calc(100%/16*5); }
-						#calendar > .YYYY[data-w="16"] > .M[data-w="6"] { height: calc(100%/16*6); }
-						#calendar > .YYYY[data-w="17"] > .M[data-w="4"] { height: calc(100%/17*4); }
-						#calendar > .YYYY[data-w="17"] > .M[data-w="5"] { height: calc(100%/17*5); }
-						#calendar > .YYYY[data-w="17"] > .M[data-w="6"] { height: calc(100%/17*6); }
-						#calendar > .YYYY[data-w="18"] > .M[data-w="4"] { height: calc(100%/18*4); }
-						#calendar > .YYYY[data-w="18"] > .M[data-w="5"] { height: calc(100%/18*5); }
-						#calendar > .YYYY[data-w="18"] > .M[data-w="6"] { height: calc(100%/18*6); }
-							/* Calendar: Month-names */
-							#calendar > .YYYY > .M > .MMMM { color: #444444; font-weight: 700; line-height: 1.5em; text-transform: uppercase; text-align: center; }
-							#calendar > .YYYY > .M > .ddd { font-size: 10px; font-weight: 700; line-height: 2em; text-transform: uppercase; text-align: center; width: calc(100%/7); float: left; }
-							#calendar > .YYYY > .M > .ddd:before { content: attr(data-ddd); }
-								/* Calendar: Days */
-								#calendar > .YYYY > .M > .MM { clear: both; width: 100%; height: calc(100% - 3.5em); }
-								#calendar > .YYYY > .M[data-w="4"] > .MM > .D { height: calc((100% + 3px) / 4); }
-								#calendar > .YYYY > .M[data-w="5"] > .MM > .D { height: calc((100% + 4px) / 5); }
-								#calendar > .YYYY > .M[data-w="6"] > .MM > .D { height: calc((100% + 5px) / 6); }
-								#calendar > .YYYY > .M > .MM > .D { float: left; width: calc((100% + 6px) / 7); position: relative; border: 1px solid #DEDEDE; margin-right: -1px; margin-bottom: -1px; position: relative; display: flex; align-items: center; justify-content: center; color: #333333; background: #FFFFFF; text-decoration: none; }
-								#calendar > .YYYY > .M > .MM > .D.active { font-weight: bold; background: #32358F; color: #FFFFFF; box-shadow: inset 1px 0px 0px #FFFFFF, inset -1px 0px 0px #FFFFFF, inset 0px -1px 0px #FFFFFF, inset 0px 1px 0px #FFFFFF; }
-								#calendar > .YYYY > .M > .MM > .D:first-child[data-d="1"] { margin-left: calc(((100% + 6px) / 7) * 1 - 1px); }
-								#calendar > .YYYY > .M > .MM > .D:first-child[data-d="2"] { margin-left: calc(((100% + 6px) / 7) * 2 - 2px); }
-								#calendar > .YYYY > .M > .MM > .D:first-child[data-d="3"] { margin-left: calc(((100% + 6px) / 7) * 3 - 3px); }
-								#calendar > .YYYY > .M > .MM > .D:first-child[data-d="4"] { margin-left: calc(((100% + 6px) / 7) * 4 - 4px); }
-								#calendar > .YYYY > .M > .MM > .D:first-child[data-d="5"] { margin-left: calc(((100% + 6px) / 7) * 5 - 5px); }
-								#calendar > .YYYY > .M > .MM > .D:first-child[data-d="6"] { margin-left: calc(((100% + 6px) / 7) * 6 - 6px); }
-								#calendar > .YYYY > .M > .MM > .D > .num { position: absolute; font-size: 11px; top: 0px; left: 4px; }
-								#calendar > .YYYY > .M > .MM > .D:hover > .num { font-weight: 700; }
-								#calendar > .YYYY > .M > .MM > .D a 
-								{
-								  margin-left: 25px;
-								}
-								img {
-									float:left;
-									width:150px;
-									height:150px;
-									background:100%;
-									margin-bottom:20px;
-								}
-								a {
-									font-size:large;
-									font-weight:500;
-								}
+					#calendar > .YYYY > .M {
+						float: left;
+						width: calc((100% - 50px) / 4);
+						margin-left: 10px;
+						text-align: center;
+					}
+					/* Calendar: Rows */
+					#calendar > .YYYY[data-w="16"] > .M[data-w="4"] {
+						height: calc(100%/16*4);
+					}
+
+					#calendar > .YYYY[data-w="16"] > .M[data-w="5"] {
+						height: calc(100%/16*5);
+					}
+
+					#calendar > .YYYY[data-w="16"] > .M[data-w="6"] {
+						height: calc(100%/16*6);
+					}
+
+					#calendar > .YYYY[data-w="17"] > .M[data-w="4"] {
+						height: calc(100%/17*4);
+					}
+
+					#calendar > .YYYY[data-w="17"] > .M[data-w="5"] {
+						height: calc(100%/17*5);
+					}
+
+					#calendar > .YYYY[data-w="17"] > .M[data-w="6"] {
+						height: calc(100%/17*6);
+					}
+
+					#calendar > .YYYY[data-w="18"] > .M[data-w="4"] {
+						height: calc(100%/18*4);
+					}
+
+					#calendar > .YYYY[data-w="18"] > .M[data-w="5"] {
+						height: calc(100%/18*5);
+					}
+
+					#calendar > .YYYY[data-w="18"] > .M[data-w="6"] {
+						height: calc(100%/18*6);
+					}
+					/* Calendar: Month-names */
+					#calendar > .YYYY > .M > .MMMM {
+						color: #444444;
+						font-weight: 700;
+						line-height: 1.5em;
+						text-transform: uppercase;
+						text-align: center;
+					}
+
+					#calendar > .YYYY > .M > .ddd {
+						font-size: 10px;
+						font-weight: 700;
+						line-height: 2em;
+						text-transform: uppercase;
+						text-align: center;
+						width: calc(100%/7);
+						float: left;
+					}
+
+						#calendar > .YYYY > .M > .ddd:before {
+							content: attr(data-ddd);
+						}
+					/* Calendar: Days */
+					#calendar > .YYYY > .M > .MM {
+						clear: both;
+						width: 100%;
+						height: calc(100% - 3.5em);
+					}
+
+					#calendar > .YYYY > .M[data-w="4"] > .MM > .D {
+						height: calc((100% + 3px) / 4);
+					}
+
+					#calendar > .YYYY > .M[data-w="5"] > .MM > .D {
+						height: calc((100% + 4px) / 5);
+					}
+
+					#calendar > .YYYY > .M[data-w="6"] > .MM > .D {
+						height: calc((100% + 5px) / 6);
+					}
+
+					#calendar > .YYYY > .M > .MM > .D {
+						float: left;
+						width: calc((100% + 6px) / 7);
+						position: relative;
+						border: 1px solid #DEDEDE;
+						margin-right: -1px;
+						margin-bottom: -1px;
+						position: relative;
+						display: flex;
+						align-items: center;
+						justify-content: flex-end;
+						color: #333333;
+						background: #FFFFFF;
+						text-decoration: none;
+					}
+
+						#calendar > .YYYY > .M > .MM > .D.active {
+							font-weight: bold;
+							background: #32358F;
+							color: #FFFFFF;
+							box-shadow: inset 1px 0px 0px #FFFFFF, inset -1px 0px 0px #FFFFFF, inset 0px -1px 0px #FFFFFF, inset 0px 1px 0px #FFFFFF;
+						}
+
+						#calendar > .YYYY > .M > .MM > .D:first-child[data-d="1"] {
+							margin-left: calc(((100% + 6px) / 7) * 1 - 1px);
+						}
+
+						#calendar > .YYYY > .M > .MM > .D:first-child[data-d="2"] {
+							margin-left: calc(((100% + 6px) / 7) * 2 - 2px);
+						}
+
+						#calendar > .YYYY > .M > .MM > .D:first-child[data-d="3"] {
+							margin-left: calc(((100% + 6px) / 7) * 3 - 3px);
+						}
+
+						#calendar > .YYYY > .M > .MM > .D:first-child[data-d="4"] {
+							margin-left: calc(((100% + 6px) / 7) * 4 - 4px);
+						}
+
+						#calendar > .YYYY > .M > .MM > .D:first-child[data-d="5"] {
+							margin-left: calc(((100% + 6px) / 7) * 5 - 5px);
+						}
+
+						#calendar > .YYYY > .M > .MM > .D:first-child[data-d="6"] {
+							margin-left: calc(((100% + 6px) / 7) * 6 - 6px);
+						}
+
+						#calendar > .YYYY > .M > .MM > .D > .num {
+							position: absolute;
+							font-size: 11px;
+							top: 0px;
+							left: 4px;
+						}
+
+						#calendar > .YYYY > .M > .MM > .D:hover > .num {
+							font-weight: 700;
+						}
+
+						#calendar > .YYYY > .M > .MM > .D a {
+							margin-left: 25px;
+						}
+
+			img {
+				float: left;
+				width: 150px;
+				height: 150px;
+				background: 100%;
+				margin-bottom: 20px;
+			}
+
+			a {
+				font-size: large;
+				font-weight: 500;
+			}
+
 			.ui.modal {
 				display: flex block;
 			}
@@ -86,24 +243,28 @@
 					color: white;
 					background: #6c6ceb;
 				}
+
 				.ui.modal > #date {
 					margin-top: -10px;
 					font-size: medium;
 					text-indent: 1.5em;
-					padding: 10px
-				}
-				.ui.modal > .description{
-					font-size:large;
-					text-indent: 1.5em; padding:10px
-				}
-				.item {
-					height:30px;
-					margin-top:10px;
-				}
-				.content {
-					margin-right:10px;
+					padding: 10px;
 				}
 
+				.ui.modal > .description {
+					font-size: large;
+					text-indent: 1.5em;
+					padding: 10px;
+				}
+
+			.item {
+				height: 30px;
+				margin-top: 10px;
+			}
+
+			.content {
+				margin-right: 10px;
+			}
 		</style>
 	</head>
 	<body>
@@ -125,75 +286,88 @@
 			/* Calendar */
 			class Calendar {
 				constructor(element, locale, callback) {
+					this.events = [
+						{
+							date: "2017-07-26",
+							event: "Постричься",
+							img: "http://san-valero.ru/upload/medialibrary/976/97677d7c969caa7fa79e09e9c6680798.jpg",
+							description: "Просто не забыть",
+							participants: [
+								{
+									name: "Я",
+									url: "https://www.facebook.com/profile.php?id=100013442178255",
+									avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/14910436_179749699149768_2658443980192741151_n.jpg?oh=9781c8d74577776037dd5d3a33a78b53&oe=59F4CBEE"
+								}]
+						},
+						{
+							date: "2017-09-23",
+							event: "Презентация проекта в Binary Studio",
+							img: "https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAmBAAAAJDU5NDczYjRmLTVkMTgtNGVmYy04ZGE0LWViMGE0NjE0ZWNmNA.png",
+							description: "Фуллстак требует жертв",
+							participants: [{
+								name: "Binary Studio",
+								url: "https://www.facebook.com/BinaryStudioAcademy/?ref=py_c",
+								avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/17201080_254964574961303_5769670957590965203_n.png?oh=8ef4fb24a99538871e092fb2fc5c0782&oe=59F3F3BB"
+							},
+							{
+								name: "Я",
+								url: "https://www.facebook.com/profile.php?id=100013442178255",
+								avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/14910436_179749699149768_2658443980192741151_n.jpg?oh=9781c8d74577776037dd5d3a33a78b53&oe=59F4CBEE"
+							}]
+						},
+
+						{
+							date: "2017-07-26",
+							event: "Приезжает девушка",
+							img: "http://media.istockphoto.com/vectors/exploding-party-popper-vector-id460796175?s=2048x2048",
+							description: "Наконец-то! Надо бы разгрестись до этого времени. И постричься.",
+							participants: [{
+								name: "some like it hot",
+								url: "https://www.facebook.com/hotcoffeebar/?fref=ts",
+								avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/13872855_583679608477828_5957132047284579597_n.jpg?oh=e490b7086e5c0add975eeed3d54dd466&oe=5A0F964A"
+							}]
+						},
+						{
+							date: "2017-08-16",
+							event: "День Рождения Богданы",
+							img: "http://www.1tortik.ru/files/torts/kosmos/tort_20_let_v_kosmose.jpg",
+							description: "Придумать подарок. Купить подарок. 20 лет все же.",
+							participants: [{
+								name: "Paris",
+								url: "https://www.facebook.com/pages/%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD-Paris/204383659579405",
+								avatar: "http://3place.com.ua/_bd/2/39321373.jpg"
+							}]
+
+						},
+						{
+							date: "2017-07-27",
+							event: "День Рождения бабушки",
+							img: "http://www.kvadrofilms.ru/upload/iblock/485/4850fad4547e6c9f683d5d583c92cee5.jpg",
+							description: "Купить подарок и предупредить Дашу, что могу задержаться со сдачей дз.",
+							participants: [{
+								name: "Бабушка",
+								url: "https://www.facebook.com/tamila.gnedash",
+								avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/1601347_1409887765989631_5918044385217245594_n.jpg?oh=8d7ba770dac75fa351af4394bf809c08&oe=59F27E8A"
+							},
+							{
+								name: "Мама",
+								url: "https://www.facebook.com/helenkhomenko26",
+								avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/10896964_777909238963980_7700429757535968040_n.jpg?oh=e5fb2aca2e08c2991f563921a2c8f02c&oe=59F23EDC"
+							},
+							{
+								name: "Я",
+								url: "https://www.facebook.com/profile.php?id=100013442178255",
+								avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/14910436_179749699149768_2658443980192741151_n.jpg?oh=9781c8d74577776037dd5d3a33a78b53&oe=59F4CBEE"
+							}]
+						}]
 					this.element = element;
 					this.locale = locale;
 					this.callback = callback;
 					moment.locale(locale);
 					this.show(moment().year());
+					
 				}
 				show(year) {
-					var events = [
-										  {
-											  date: "2017-09-23",
-											  event: "РџСЂРµР·РµРЅС‚Р°С†РёСЏ РїСЂРѕРµРєС‚Р° РІ Binary Studio",
-											  img: "https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAmBAAAAJDU5NDczYjRmLTVkMTgtNGVmYy04ZGE0LWViMGE0NjE0ZWNmNA.png",
-											  description: "Р¤СѓР»Р»СЃС‚Р°Рє С‚СЂРµР±СѓРµС‚ Р¶РµСЂС‚РІ",
-											  participants: [{
-												  name: "Binary Studio",
-												  url: "https://www.facebook.com/BinaryStudioAcademy/?ref=py_c",
-												  avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/17201080_254964574961303_5769670957590965203_n.png?oh=8ef4fb24a99538871e092fb2fc5c0782&oe=59F3F3BB"
-												 },
-												  {
-													  name: "РЇ",
-													  url: "https://www.facebook.com/profile.php?id=100013442178255",
-													  avatar:"https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/14910436_179749699149768_2658443980192741151_n.jpg?oh=9781c8d74577776037dd5d3a33a78b53&oe=59F4CBEE"
-												  }]
-										  },
-										  
-										  {
-											  date: "2017-07-26",
-											  event: "РџСЂРёРµР·Р¶Р°РµС‚ РґРµРІСѓС€РєР°",
-											  img: "http://media.istockphoto.com/vectors/exploding-party-popper-vector-id460796175?s=2048x2048",
-											  description: "РќР°РєРѕРЅРµС†-С‚Рѕ! РќР°РґРѕ Р±С‹ СЂР°Р·РіСЂРµСЃС‚РёСЃСЊ РґРѕ СЌС‚РѕРіРѕ РІСЂРµРјРµРЅРё. Р РїРѕСЃС‚СЂРёС‡СЊСЃСЏ.",
-											  participants: [{
-												  name: "some like it hot",
-												  url: "https://www.facebook.com/hotcoffeebar/?fref=ts",
-												  avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/13872855_583679608477828_5957132047284579597_n.jpg?oh=e490b7086e5c0add975eeed3d54dd466&oe=5A0F964A"
-											  }]
-										  },
-										  {
-											  date: "2017-08-16",
-											  event: "Р”РµРЅСЊ Р РѕР¶РґРµРЅРёСЏ Р‘РѕРіРґР°РЅС‹",
-											  img: "http://www.1tortik.ru/files/torts/kosmos/tort_20_let_v_kosmose.jpg",
-											  description: "РџСЂРёРґСѓРјР°С‚СЊ РїРѕРґР°СЂРѕРє. РљСѓРїРёС‚СЊ РїРѕРґР°СЂРѕРє. 20 Р»РµС‚ РІСЃРµ Р¶Рµ.",
-											  participants: [{
-												  name: "Paris",
-												  url: "https://www.facebook.com/pages/%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD-Paris/204383659579405",
-												  avatar: "http://3place.com.ua/_bd/2/39321373.jpg"
-											  }]
-											  
-										  },
-										  {
-											  date: "2017-07-27",
-											  event: "Р”РµРЅСЊ Р РѕР¶РґРµРЅРёСЏ Р±Р°Р±СѓС€РєРё",
-											  img: "http://www.kvadrofilms.ru/upload/iblock/485/4850fad4547e6c9f683d5d583c92cee5.jpg",
-											  description: "РљСѓРїРёС‚СЊ РїРѕРґР°СЂРѕРє Рё РїСЂРµРґСѓРїСЂРµРґРёС‚СЊ Р”Р°С€Сѓ, С‡С‚Рѕ РјРѕРіСѓ Р·Р°РґРµСЂР¶Р°С‚СЊСЃСЏ СЃРѕ СЃРґР°С‡РµР№ РґР·.",
-											  participants: [{
-												  name: "Р‘Р°Р±СѓС€РєР°",
-												  url: "https://www.facebook.com/tamila.gnedash",
-												  avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/1601347_1409887765989631_5918044385217245594_n.jpg?oh=8d7ba770dac75fa351af4394bf809c08&oe=59F27E8A"
-											  },
-											  {
-												  name: "РњР°РјР°",
-												  url: "https://www.facebook.com/helenkhomenko26",
-												  avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/10896964_777909238963980_7700429757535968040_n.jpg?oh=e5fb2aca2e08c2991f563921a2c8f02c&oe=59F23EDC"
-											  },
-											  {
-												  name: "РЇ",
-												  url: "https://www.facebook.com/profile.php?id=100013442178255",
-												  avatar: "https://scontent.fhen1-1.fna.fbcdn.net/v/t1.0-9/14910436_179749699149768_2658443980192741151_n.jpg?oh=9781c8d74577776037dd5d3a33a78b53&oe=59F4CBEE"
-											  }]	  
-										  }]
 					this.year = year;
 					var m, d1, t = [], y = '',
 						w = 0, r = 0,
@@ -220,13 +394,14 @@
 					var AllDays = $(".D");
 					for(var i=0;i<AllDays.length;i++)
 					{
-						var current_day = AllDays[i];
-						var atribute = current_day.getAttribute("data-date");
+						let current_day = AllDays[i];
+						let atribute = current_day.getAttribute("data-date");
+
 						function checker(element)
 						{
 							if (element.date == atribute)
 							{
-								current_day.children[1].innerHTML = '<a class="for-popup ui blue empty circular label" data-variation="tiny" data-content="' + element.event + '">';
+								current_day.children[1].insertAdjacentHTML('beforeend', '<p class="for-popup ui mini blue empty circular label" data-variation="tiny" data-content="' + element.event + '">');
 								var parts = '';
 								if (undefined !== element.participants)
 								for (var i = 0; i < element.participants.length;i++)
@@ -235,7 +410,7 @@
 										'<div class="content"><a href="' +
 										element.participants[i].url + '">' + element.participants[i].name + '</a></div></div>'
 									
-							   current_day.children[1].children[0].addEventListener('click', function () {
+								current_day.children[1].children[current_day.children[1].children.length - 1].addEventListener('click', function () {
 									$('#header').text(element.event);
 									$('#date').text(element.date);
 									$("#img").html('<img src="' + element.img + '">');
@@ -245,7 +420,7 @@
 								});
 							}
 						}
-						events.forEach(checker);
+						this.events.forEach(checker);
 					}
 					$('.for-popup').popup();
 					$('#ui-button').on('click', function () {
